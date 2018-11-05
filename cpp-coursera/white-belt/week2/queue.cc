@@ -49,7 +49,7 @@ int main(){
       cin >> n;
       queue.resize(queue.size() + n);
     } else if (command == "WORRY_COUNT"){
-      cout << count(queue.begin(), queue.end(), true);
+      cout << count(queue.begin(), queue.end(), true) << endl;
     }
   }
 }
