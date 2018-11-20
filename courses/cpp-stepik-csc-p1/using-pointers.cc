@@ -40,6 +40,39 @@ void strcat(char *to, const char *from)
     while(*(to++) = *(from++));
 }
 
+// Напишите функцию поиска первого вхождения шаблона в текст. В качестве первого параметра
+// функция принимает текст (C-style строка), в которой нужно искать шаблон. В качестве второго
+// параметра строку-шаблон (C-style строка), которую нужно найти. Функция возвращает позицию
+// первого вхождения строки-шаблона, если он присутствует в строке (помните, что в C++ принято
+// считать с 0), и -1, если шаблона в тексте нет.
+//
+// Учтите, что пустой шаблон (строка длины 0) можно найти в любом месте текста.
+
+int strstr(const char *text, const char *pattern)
+{
+  if(*pattern == 0){
+    return 0;
+  }
+
+  for(unsigned i = 0; *text != 0; i++){
+    if(*text == *pattern){
+      const char* pattern_it = pattern;
+      const char* source_it = text;
+      while(*pattern_it != 0){
+        if(*pattern_it != *source_it){
+          break;
+        }
+        pattern_it++; source_it++;
+      }
+
+      if(*pattern_it == 0){
+        return i;
+      }
+    }
+    text++;
+  }
+  return -1;
+}
 
 
 
