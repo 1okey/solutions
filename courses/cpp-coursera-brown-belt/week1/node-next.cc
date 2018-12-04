@@ -33,21 +33,24 @@ Node* Next(Node* node);
 //
 //  Функция должна вернуть nullptr в случае, если текущая вершина -- последняя в дереве.
 
-Node* FindNext(Node* node, int origin){
-  if(node == nullptr)
-    return nullptr;
-
-  if(node->right == nullptr)
-    return node->parent->value > node->value ? node->parent : FindNext(node->parent, origin);
-
-  if(node->value > origin)
-    return node;
-
-  return node->right->value > origin ? node->right : FindNext(node->parent, origin);
-}
-
 Node* Next(Node* node){
-  return FindNext(node, node->value);
+  if(node->right){
+    node = node->right;
+    while(node->left) node = node->left;
+    return node;
+  }
+
+  if(node->parent && node->parent->left == node){
+    return node->parent;
+  }
+
+  if(!node->right && node->parent && node->parent->right == node){
+    while(node->parent && node != node->parent->left) node = node->parent;
+    if(!node->parent) return nullptr;
+    return node->parent;
+  }
+
+  return nullptr;
 }
 
 class NodeBuilder {
@@ -92,7 +95,7 @@ void Test1() {
 
   r = nb.CreateRightSon(root, 100);
   l = nb.CreateLeftSon(r, 90);
-  nb.CreateRightSon(r, 101);
+  Node* m = nb.CreateRightSon(r, 101);
 
   nb.CreateLeftSon(l, 89);
   r = nb.CreateRightSon(l, 91);
@@ -101,6 +104,9 @@ void Test1() {
   ASSERT_EQUAL( Next(root)->value, 89 );
   ASSERT_EQUAL( Next(min)->value, 2 );
   ASSERT_EQUAL( Next(r)->value, 100);
+  ASSERT( Next(m) == nullptr);
+
+
 
   while (min) {
     cout << min->value << '\n';
