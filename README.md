@@ -1,8 +1,8 @@
 # CODE-X
 ## exploring the programming world
-- [algorithms](algorithms/)
+- algorithms
 - [books](books/)
 - [courses](courses/)
-- [data structures](data_structues/)
+- data structures
 - [patterns](patterns/)
 - [problems](problems/)
