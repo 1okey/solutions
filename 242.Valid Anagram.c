@@ -1,3 +1,6 @@
+#include <stdbool.h>
+#include <stdlib.h>
+
 bool isAnagram(char* s, char* t) {
     int * count = (int*) calloc(26, sizeof(int));
     while(*s != 0 && *t != 0){
