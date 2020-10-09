@@ -1,27 +1,36 @@
-#include <set>
-#include <string>
-#include <vector>
+// https://leetcode.com/problems/unique-morse-code-words/
 
-
-static int asyncx = [](){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    return 0;
-}();
-
-const static vector<string> dict = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+const static vector<string> alphabet = {
+    ".-","-...","-.-.","-..",
+    ".","..-.","--.","....",
+    "..",".---","-.-",".-..",
+    "--","-.","---",".--.",
+    "--.-",".-.","...","-",
+    "..-","...-",".--","-..-",
+    "-.--","--.."
+};
 
 class Solution {
 public:
     int uniqueMorseRepresentations(vector<string>& words) {
-        set<string> unique;
-        for(auto& word : words){
-            string morse = "";
-            for(char c : word){
-                morse += dict[c- 97];
-            }
-            unique.insert(morse);
+        set<string> transformations;
+        for (string& word: words)
+        {
+            transformations.insert(transform(word));
         }
-        return unique.size();
+        
+        return transformations.size();
+    }
+    
+    string transform(const string& word)
+    {
+        string morse;
+        
+        for (size_t i = 0; i < word.size(); ++i)
+        {
+            morse += alphabet[(int)(word[i] - 0x61)];
+        }
+
+        return move(morse);
     }
 };
