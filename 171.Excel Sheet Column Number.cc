@@ -1,19 +1,11 @@
-static int sync = [](){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    return 0;
-}();
-
 class Solution {
 public:
     int titleToNumber(string s) {
-        int result = 0;
-        int size = 26;
-        for(char c : s){
-            result *= size;
-            result += c - (c & 0x40);
+        int number = 0;
+        for(size_t i = 0; i < s.size(); ++i)
+        {
+            number += (s[s.size() - i - 1] - 0x40) * pow(26, i);
         }
-
-        return result;
+        return number;
     }
 };

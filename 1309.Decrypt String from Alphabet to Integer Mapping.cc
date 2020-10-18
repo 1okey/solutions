@@ -3,6 +3,10 @@
 class Solution {
 public:
     string freqAlphabets(string s) {
+        std::ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+        cout.tie(nullptr);
+
         vector<char> output;
         output.reserve(s.size());
         int i = s.size() - 1;
