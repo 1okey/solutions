@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/range-sum-of-bst/
+// https://leetcode.com/problems/same-tree/
 
 /**
  * Definition for a binary tree node.
@@ -13,11 +13,12 @@
  */
 class Solution {
 public:
-    int rangeSumBST(TreeNode* root, int L, int R) {
-        if (root == nullptr) return 0;
-        
-        int num = root->val <= R && root->val >= L ? root->val : 0;
-        
-        return num + rangeSumBST(root->left, L, R) + rangeSumBST(root->right, L, R);
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if (!p && !q) return true;
+        if (!p || !q) return false;
+            
+        if (p->val != q->val) return false;
+            
+        return isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
     }
 };

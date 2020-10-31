@@ -32,3 +32,37 @@ public:
         
     }
 };
+
+// or
+
+class Solution {
+public:
+    void addWords(unordered_map<string, int>& dict, string& words)
+    {
+        istringstream is(words);
+        while(is.rdbuf()->in_avail()){
+            string word;
+            is >> word;
+            if (dict.find(word) == dict.end()){
+                dict.insert({word, 1});
+            } else {
+                dict[word]++;
+            }
+        }
+    }
+    
+    vector<string> uncommonFromSentences(string A, string B) {
+        unordered_map<string, int> dict;
+        addWords(dict, A);
+        addWords(dict, B);
+
+        vector<string> uncommon;
+        for (auto& [key,value]: dict) {
+            if (value == 1) {
+                uncommon.push_back(key);
+            }
+        }
+        
+        return uncommon;
+    }
+};
