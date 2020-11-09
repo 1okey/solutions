@@ -1,15 +1,6 @@
-#include <vector>
-#include <iostream>
-
-using std::vector;
-
-static const int opt = [](){
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    std::cout.tie(nullptr);
-    return 1;
-}();
-
+// https://leetcode.com/problems/n-ary-tree-postorder-traversal/
+/*
+// Definition for a Node.
 class Node {
 public:
     int val;
@@ -17,30 +8,33 @@ public:
 
     Node() {}
 
+    Node(int _val) {
+        val = _val;
+    }
+
     Node(int _val, vector<Node*> _children) {
         val = _val;
         children = _children;
     }
 };
+*/
 
 class Solution {
-private:
-    vector<int> nodes;
 public:
-    void buildorder(Node* root) {
-        if(!root) return;
-        
-        if(root->children.size() > 0) {
-            for(auto* node: root->children) {
-                buildorder(node);
-            }
-            nodes.push_back(root->val);
-        }
-        else nodes.push_back(root->val); 
-    }
-    
     vector<int> postorder(Node* root) {
-        buildorder(root);    
-        return nodes;
+        if (!root) return vector<int>{};
+        if (root->children.size() == 0) return vector<int>{root->val};
+        
+        vector<int> list;
+        for (Node* child: root->children) {
+            vector<int> children = postorder(child);
+            for (int subchild: children) {
+                list.push_back(subchild);
+            }
+        }
+        list.push_back(root->val);
+
+        
+        return list;
     }
 };
