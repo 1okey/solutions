@@ -1,15 +1,7 @@
-#include <vector>
-#include <iostream>
+// https://leetcode.com/problems/n-ary-tree-preorder-traversal/
 
-using std::vector;
-
-static const int opt = [](){
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    std::cout.tie(nullptr);
-    return 1;
-}();
-
+/*
+// Definition for a Node.
 class Node {
 public:
     int val;
@@ -17,30 +9,32 @@ public:
 
     Node() {}
 
+    Node(int _val) {
+        val = _val;
+    }
+
     Node(int _val, vector<Node*> _children) {
         val = _val;
         children = _children;
     }
 };
+*/
 
 class Solution {
-private:
-    vector<int> nodes;
 public:
-    void buildorder(Node* root) {
-        if(!root) return;
+    vector<int> preorder(Node* root) {
+        if (!root) return vector<int>{};
+        if (root->children.size() == 0) return vector<int>{root->val};
         
-        if(root->children.size() > 0) {
-            nodes.push_back(root->val);
-            for(auto* node: root->children) {
-                buildorder(node);
+        vector<int> list;
+        list.push_back(root->val);
+        for (Node* child: root->children) {
+            vector<int> children = preorder(child);
+            for(int subchild: children) {
+                list.push_back(subchild);
             }
         }
-        else nodes.push_back(root->val); 
-    }
-    
-    vector<int> preorder(Node* root) {
-        buildorder(root);    
-        return nodes;
+        
+        return list;
     }
 };
