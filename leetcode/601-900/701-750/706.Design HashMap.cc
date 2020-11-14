@@ -1,29 +1,45 @@
-// lazy way, without space effiency
+#include <algorithm>
+#include <iterator>
 
 class MyHashMap {
 private:
-    int * _data;
-    
+    vector<int> _data;
+    static const int SIZE = 100;
+    size_t _size;
 public:
     /** Initialize your data structure here. */
     MyHashMap() {
-        _data = new int[1000001];
-        memset(_data, -1, 1000001);
+        _size = MyHashMap::SIZE;
+        _data = vector<int>(_size, -1);
     }
     
     /** value will always be non-negative. */
     void put(int key, int value) {
+        if (key >= _size) {
+            resize();
+            return put(key, value);
+        }
         _data[key] = value;
     }
     
     /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
     int get(int key) {
-        return _data[key];
+        return key >= _size ? -1 : _data[key];
     }
     
     /** Removes the mapping of the specified value key if this map contains a mapping for the key */
     void remove(int key) {
-        _data[key] = -1;
+        if (key < _size) {
+            _data[key] = -1;
+        }
+    }
+private:
+    void resize()
+    {
+        _size *= 2;
+        vector<int> _tmp(_size, -1);
+        copy(_data.begin(), _data.end(), _tmp.begin());
+        _data = move(_tmp);
     }
 };
 
