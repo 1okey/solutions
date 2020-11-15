@@ -1,22 +1,26 @@
-// Implement strStr().
+// https://leetcode.com/problems/implement-strstr/
 
-// Return the index of the first occurrence of needle in haystack, 
-// or -1 if needle is not part of haystack.
-
-int strStr(char* haystack, char* needle) {
-    if(!*haystack && !*needle)
-        return 0;
-    
-    for (unsigned i = 0; haystack[i]; ++i) {
-        unsigned k = 0;
-        for(; haystack[i + k] && needle[k]; ++k) {
-            if(haystack[i + k] != needle[k])
-                break;
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        if(!needle.size())
+            return 0;
+        
+        if (haystack.size() == needle.size()) {
+            return  haystack == needle ? 0 : -1;
         }
         
-        if(needle[k] == '\0') {
-            return i; 
+        for (size_t i = 0; i < haystack.size(); ++i) {
+            size_t k = 0;
+            for(;haystack[k + i] == needle[k] 
+                && i + k < haystack.size() 
+                && k < needle.size(); ++k);
+            
+            if(k >= needle.size()) {
+                return i; 
+            }
         }
+        
+        return -1;
     }
-    return -1;
-}
+};
