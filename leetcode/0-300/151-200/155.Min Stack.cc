@@ -9,11 +9,7 @@ static int asynx = [](){
 class MinStack {
 public:
     /** initialize your data structure here. */
-    MinStack()
-        : size_(0)    ,
-          capacity_(1),
-          min_indx_(0),
-          data_(new int [capacity_])
+    MinStack(): size_(0), capacity_(1), min_indx_(0), data_(new int [capacity_])
     {
     }
 
@@ -34,10 +30,10 @@ public:
         }
         --size_;
         if(min_indx_ == size_){
-          min_indx_ = 0;
-          for(size_t i = 0; i < size_; ++i){
-            min_indx_ = data_[min_indx_] < data_[i] ? min_indx_ : i;
-          }
+            min_indx_ = 0;
+            for(size_t i = 0; i < size_; ++i){
+                min_indx_ = data_[min_indx_] < data_[i] ? min_indx_ : i;
+            }
         }
 
     }
@@ -66,7 +62,7 @@ private:
         capacity_ *= 2;
         int* new_data = new int [capacity_];
         for(size_t i = 0; i < size_; ++i){
-          new_data[i] = data_[i];
+            new_data[i] = data_[i];
         }
         int* tmp = data_;
         data_ = new_data;
