@@ -15,10 +15,10 @@ public:
 
 class Solution {
 public:
-    bool isPowerOfThree(int n) {
+    bool isPowerOfFour(int n) {
         if (n <= 0) return false;
 
-        return floor(log10(n) / log10(4)) == ceil(log10(n) / log10(4)) 
+        return floor(log10(n) / log10(4)) == ceil(log10(n) / log10(4));
     }
 };
 
