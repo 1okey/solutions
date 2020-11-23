@@ -1,5 +1,4 @@
-# https://leetcode.com/problems/employees-earning-more-than-their-managers/submissions/
-# Write your MySQL query statement below
+-- https://leetcode.com/problems/employees-earning-more-than-their-managers/submissions/
 select e.Name as Employee 
 from Employee as e
 join Employee as m
