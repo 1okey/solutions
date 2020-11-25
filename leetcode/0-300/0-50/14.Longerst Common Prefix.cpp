@@ -7,35 +7,37 @@ using std::endl;
 using std::vector;
 using std::string;
 
-static int opt = [](){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    std::cout.tie(nullptr);
-    return 0;
-}();
-
-
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
-        string prefix = "";
         
-        if(strs.size() == 0) return prefix;
-        
-        size_t i = 0;
-        while(true) {
-            char c = strs[0][i];
-            
-            for(const string& s: strs) {
-                if(i >= s.size() || s[i] != c){
-                    return prefix;
-                }
-            }
-            ++i;
-            prefix += c;            
+        if (strs.size() == 0) {
+            return "";
         }
         
-        return prefix;
+        std::ios::sync_with_stdio(false);
+        std::cin.tie(nullptr);
+        std::cout.tie(nullptr);
+        
+        string common = "";
+        int word_ptr = 0, char_ptr = 0;
+        
+        while(true) {
+            char current = strs[word_ptr][char_ptr];
+            
+            for(int i = word_ptr; i < strs.size(); ++i) {
+                string& word = strs[i];
+                if (char_ptr == word.size() || word[char_ptr] != current) {
+                    return common;
+                }
+            }
+            
+            common += current;
+            ++char_ptr;
+            word_ptr = 0;
+        }
+        
+        return common;
     }
 };
 
