@@ -9,8 +9,8 @@ public:
         
         int max_consecutive = 0;
         int counter = 0;
-        for (int& n: nums) {
-            if (n == 1) {
+        for (size_t i = 0; i < nums.size(); ++i) {
+            if (nums[i] == 1) {
                 ++counter;
             } 
             else {
@@ -18,6 +18,7 @@ public:
                 counter = 0;
             }
         }
+
         max_consecutive = max(max_consecutive, counter);
         return max_consecutive;
     }
