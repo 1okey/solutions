@@ -24,7 +24,6 @@ public:
                 leaves.insert(leaves.begin(), ptr);
                 ptr = ptr->left;
             } else {
-                // nothing to the left? push the last leaf value, take last leaf and proceed
                 TreeNode* back = leaves.back();
                 ptr = back->right;
                 leaves.pop_back();
