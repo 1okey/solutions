@@ -1,28 +1,22 @@
-static int opt = [](){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    std::cout.tie(nullptr);
-    return 0;
-}();
-
 class Solution {
 public:
-    vector<int>& plusOne(vector<int>& digits) {
-        auto it = digits.rbegin();
-        auto first = digits.rend() - 1;
-        for(; it != digits.rend(); ++it) {
-            if(*it == 9) {
-                *it = 0;
-                if(it == first) {
-                    digits.insert(digits.begin(), 1);
-                    break;
-                } 
-            } 
-            else {
-                *it += 1;
-                break;
-            }
+    vector<int> plusOne(vector<int>& digits) {
+        int carry = 1;
+        int i = digits.size() - 1;
+        while (carry != 0 && i >= 0) {
+            digits[i] += carry;
+            carry = 0;
+            if (digits[i] > 9) {
+                carry = digits[i] % 9;
+                digits[i] = 0;
+            } else break;
+            --i;
         }
+        
+        if (carry > 0) {
+            digits.insert(digits.begin(), carry);
+        }
+        
         return digits;
     }
 };
