@@ -15,22 +15,22 @@ static int opt = [](){
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        if(nums.size() == 0) return 0;
+        int k = 0;
 
-        size_t num_pos = 1;
-        size_t i = 1;
-        while(i < nums.size()) {
-            if(nums[i] != nums[i - 1]) {
-                nums[num_pos++] = nums[i];
-            }
-            ++i;
+        if (nums.size() == 0) {
+            return k;
         }
         
-        nums.resize(num_pos);
-        return num_pos;
+        
+        for (int i = 1; i < nums.size(); ++i) {
+            if (nums[i] != nums[k]){
+                nums[++k] = nums[i];
+            }
+        }
+        
+        return k + 1;
     }
 };
-
 void TestRemoveDuplicatesFromSortedArray() {
     vector<int> n = {0,0,1,1,1,2,2,3,3,4};
     vector<int> n1 = {1,1,2};
