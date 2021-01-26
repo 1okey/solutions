@@ -12,21 +12,27 @@ struct Node {
     Node* next;
 };
 
-void remove_duplicates(Node* head) {
-    // O(n) time, O(n) space
+Node* get_nth_from_end(Node* head, int n) {
     Node* ptr = head;
-    Node* prev = nullptr;
 
-    unordered_set<int> vals;
+    int size = 0;
     while(ptr) {
-        if(vals.find(ptr->val) != vals.end()) {
-            prev->next = ptr->next;
-        } else {
-            vals.insert(ptr->val);
-            prev = ptr;
-        }
+        ++size;
         ptr = ptr->next;
     }
+
+    if (size <= n) {
+        return head;
+    }
+
+    ptr = head;
+    int index = size - n - 1;
+    while(index >= 0) {
+        --index;
+        ptr = ptr->next;
+    }
+
+    return ptr;
 }
 
 Node* create_list_from_vector(const vector<int>& v)
@@ -53,9 +59,15 @@ void print_list(Node* head) {
 
 
 int main(){
-    Node* head = create_list_from_vector({3,7,3,1,7,6,9,6,4});
+    Node* node1 = create_list_from_vector({3,7,3,1,7,6,9,6,4});
 
-    remove_duplicates(head);
+    assert(get_nth_from_end(node1, 4)->val == 6);
+    assert(get_nth_from_end(node1, 1)->val == 4);
+    assert(get_nth_from_end(node1, 11)->val == 3);
 
-    print_list(head);
+
+    Node* node2 = create_list_from_vector({3,7,3,1,7,6,9,6,4,10});
+    assert(get_nth_from_end(node2, 4)->val == 9);
+    assert(get_nth_from_end(node2, 1)->val == 10);
+    assert(get_nth_from_end(node2, 11)->val == 3);
 }
